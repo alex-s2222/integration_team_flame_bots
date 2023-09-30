@@ -7,11 +7,15 @@ from telegram.ext import (
 
 from telegram import (
     Update,
+    ReplyKeyboardMarkup
 )
+
+from app.handlers.keyboards import main_menu
 
 import requests
 import re
 from loguru import logger
+
 
 
 URL = 'https://auth-api.test-team-flame.ru/auth/sign-in'
@@ -120,11 +124,15 @@ async def __check_password(update: Update, context: ContextTypes.DEFAULT_TYPE):
             user_data['id'] = data['id']
 
             logger.info(user_data)
+            markup = ReplyKeyboardMarkup(main_menu, resize_keyboard=True)
+            
             await update.message.reply_text(
-                            text="успешно")
+                            text="успешно", reply_markup=markup)
+            return ConversationHandler.END
         else:
             await update.message.reply_text(
                             text="ошибка")
+            
 
 
 

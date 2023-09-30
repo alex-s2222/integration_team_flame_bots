@@ -35,13 +35,22 @@ def get_user_projects(TOKEN, space_id):
             projects[project_id] = name
         return projects
     
+def delete_user_space(TOKEN):
+    URL = 'https://api.test-team-flame.ru/space/delete'
+    headers = {'Authorization': f'Bearer {TOKEN}'}
+    data = {'id':'65186775e0d83c7a77ffb34a'}
+
+    response = requests.delete(url=URL, headers=headers, json=data)
+
+    if (response.status_code >= 200) and (response.status_code < 300):
+        data = response.json()
+        logger.info(data)
+    else:
+        logger.info(response.text)
+
+    
+    
 
 if __name__ == '__main__':
-    TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZXgtczIyMjJAbWFpbC5ydSIsInVzZXJJZCI6IjY1MTc0MTAwZWMxZGNjYjBkMzMwYmJlYiIsImlhdCI6MTY5NjA0MTQyMiwiZXhwIjoxNjk2MzQxNDIyfQ.Dbu2qDp-jMa84h4TpOMx3RLhv6PrIXV0LyGCt1eRFew'
-    spaces = get_user_spaces(TOKEN)
-    logger.info(spaces)
-    projects = []
-    for id, name in spaces.items():
-        projects.append(get_user_projects(TOKEN, id))
-
-    logger.info(projects)
+    TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZXgtczIyMjJAbWFpbC5ydSIsInVzZXJJZCI6IjY1MTc0MTAwZWMxZGNjYjBkMzMwYmJlYiIsImlhdCI6MTY5NjA3MTA1NSwiZXhwIjoxNjk2MzcxMDU1fQ.H9oGphVuV4x9Do4Whbjf6qzdF6PXUKy1a5cRwC5knls'
+    delete_user_space(TOKEN)
