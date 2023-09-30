@@ -35,7 +35,7 @@ async def __user_spaces(update: Update, context: ContextTypes.DEFAULT_TYPE):
     markup = InlineKeyboardMarkup(keyboards.create_spaces_keyboard(user_data['accessToken']))
 
     await update.message.reply_text(
-        text="Выберете пространство для выбора действия", reply_markup=markup
+        text="Создайте или выберете пространство", reply_markup=markup
     )
     
     return SPACES 
@@ -83,11 +83,11 @@ async def __delete_spaces(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if err:
        await query.edit_message_text(
-                            text="ОШИБКА \nВыберете пространство для продолжения", reply_markup=markup)
+                            text="ОШИБКА \nСоздайте или выберете пространство для продолжения", reply_markup=markup)
        return SPACES
     else:
         await query.edit_message_text(
-                            text="Пространство удаленно \nВыберете пространство для продолжения", reply_markup=markup)
+                            text="Пространство удаленно \nСоздайте или выберете пространство для продолжения", reply_markup=markup)
         return SPACES
 
 
@@ -116,7 +116,7 @@ async def __create_space(update: Update, context: ContextTypes.DEFAULT_TYPE):
        return SPACES
     else:
         await update.message.reply_text(
-                            text="Пространство созданно \nВыберете пространство для продолжения", reply_markup=markup)
+                            text="Пространство созданно \nСоздайте или выберете пространство для продолжения", reply_markup=markup)
         return SPACES
 
 
@@ -141,9 +141,8 @@ def get_spaces() -> ConversationHandler:
                 CallbackQueryHandler(__choice_spaces)
             ],
             ACTION:[
-                CallbackQueryHandler(__get_name_for_create_spaces,  pattern="^" + str(ONE) + "$"),
-                CallbackQueryHandler(__delete_spaces,  pattern="^" + str(TWO) + "$"),
-                CallbackQueryHandler(...,  pattern="^" + str(THREE) + "$")
+                CallbackQueryHandler(__delete_spaces,  pattern="^" + str(ONE) + "$"),
+                CallbackQueryHandler(...,  pattern="^" + str(TWO) + "$")
             ],
             INPUT_NAME_FOR_SPACE:[
                 MessageHandler(filters.TEXT, __create_space)

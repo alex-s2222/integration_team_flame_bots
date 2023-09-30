@@ -8,9 +8,8 @@ from app.handlers.service.action_space import get_user_spaces
 __stage = [i for i in range(4)]
 
 spaces_menu_keyboard = [
-        [InlineKeyboardButton('Создать', callback_data=str(__stage[0]))],
-        [InlineKeyboardButton('Удалить',callback_data=str(__stage[1]))],
-        [InlineKeyboardButton('Перейти в проект', callback_data=str(__stage[2]))]
+        [InlineKeyboardButton('Удалить',callback_data=str(__stage[0]))],
+        [InlineKeyboardButton('Перейти в проект', callback_data=str(__stage[1]))]
     ]
 
 back_to_menu = ReplyKeyboardMarkup([['⬅️ Назад в главное меню']], resize_keyboard=True, one_time_keyboard=True)
