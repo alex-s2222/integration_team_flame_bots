@@ -20,7 +20,11 @@ def run():
 
     app.add_handler(CommandHandler('start', start))
 
+    # auth user
     app.add_handler(sign_up())
     app.add_handler(sign_in())
+
+    #
+    
 
     app.run_polling()

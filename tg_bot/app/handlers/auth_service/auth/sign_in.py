@@ -7,6 +7,7 @@ from telegram.ext import (
 
 from telegram import (
     Update,
+    ReplyKeyboardRemove
 )
 
 import requests
@@ -22,7 +23,7 @@ async def __input_email(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Просим пользователя ввести имя для регистрации"""
 
     await update.message.reply_text(
-        text="Введите email")
+        text="Введите email", reply_markup=ReplyKeyboardRemove())
     
     return INPUT_EMAIL
 
@@ -73,7 +74,8 @@ async def __check_password(update: Update, context: ContextTypes.DEFAULT_TYPE):
         else:
             logger.info(response.text)
             await update.message.reply_text(
-                            text="ошибка")
+                            text="ошибка введите данные заново \nВведите email")
+            return INPUT_EMAIL
 
 
 

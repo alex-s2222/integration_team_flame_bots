@@ -133,6 +133,15 @@ def sign_up() -> ConversationHandler:
     sign_up_handler = ConversationHandler(
         entry_points=[MessageHandler(filters.Regex('^🆕Создать аккаунт🆕$'), __input_names),],
         states={
+            INPUT_FIRST_NAME: [
+                MessageHandler(filters.TEXT, __check_first_name),
+            ],
+            INPUT_LAST_NAME:[
+                MessageHandler(filters.TEXT, __check_last_name),
+            ],
+            INPUT_SERNAME:[
+                MessageHandler(filters.TEXT, __check_ser_name),
+            ],
             INPUT_EMAIL: [
                 MessageHandler(filters.TEXT, __check_email_correct),
             ],
