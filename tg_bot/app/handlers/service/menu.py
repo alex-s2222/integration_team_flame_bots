@@ -51,7 +51,7 @@ async def __choice_spaces(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     #заносим выбор пользователя в context
     user_data = context.user_data
-    user_data['user_choice'] = index_spaces
+    user_data['user_choice'] = index_spaces - 1
 
     markup = InlineKeyboardMarkup(keyboards.spaces_menu_keyboard)
 
@@ -68,7 +68,8 @@ async def __delete_spaces(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.answer()
 
     user_data = context.user_data
-    index_spaces = user_data['user_choice']
+    index_spaces = int(user_data['user_choice'])
+    
     token = user_data['accessToken']
     spaces = action_space.get_user_spaces(token)
 
@@ -107,7 +108,7 @@ async def __create_space(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
     err = action_space.create_user_space(TOKEN=token, space_name=space_name)
-    
+
     markup = InlineKeyboardMarkup(keyboards.create_spaces_keyboard(user_data['accessToken']))
     if err:
        await update.message.reply_text(
@@ -136,6 +137,7 @@ def get_spaces() -> ConversationHandler:
         entry_points=[MessageHandler(filters.Regex('^Мои пространства$'), __user_spaces),],
         states={
             SPACES: [
+                CallbackQueryHandler(__get_name_for_create_spaces, pattern="^" + str(ONE) + "$"),
                 CallbackQueryHandler(__choice_spaces)
             ],
             ACTION:[

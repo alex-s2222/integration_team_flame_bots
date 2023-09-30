@@ -22,8 +22,10 @@ def create_spaces_keyboard(TOKEN):
     spaces = get_user_spaces(TOKEN)
     names = spaces.values()
 
+    spaces_keyboard.append([InlineKeyboardButton('Создать пространство', callback_data=str(0))])
+
     for i, title in enumerate(names):
-        spaces_keyboard.append([InlineKeyboardButton(title, callback_data=str(i))])
+        spaces_keyboard.append([InlineKeyboardButton(title, callback_data=str(i+1))])
 
     return spaces_keyboard
     
