@@ -18,7 +18,7 @@ from loguru import logger
 
 
 
-URL = 'https://auth-api.test-team-flame.ru/auth/sign-in'
+URL = 'https://auth-api.test-team-flame.ru/auth/sign-up'
 
 INPUT_FIRST_NAME, INPUT_LAST_NAME, INPUT_SERNAME, INPUT_EMAIL, INPUT_PASSWORD = range(5)
 
@@ -131,6 +131,7 @@ async def __check_password(update: Update, context: ContextTypes.DEFAULT_TYPE):
                             text="успешно", reply_markup=markup)
             return ConversationHandler.END
         else:
+            logger.info(response.text)
             await update.message.reply_text(
                             text="ошибка")
             

@@ -9,6 +9,7 @@ from telegram.ext import (
 from telegram import (
     Update,
 )
+import os
 
 from app.SETTINGS import TOKEN
 from app.handlers.auth_service.auth.main import start
@@ -17,6 +18,7 @@ from app.handlers.auth_service.auth.sign_in import sign_in
 from app.handlers.service.menu import get_spaces
 
 def run():
+    TOKEN = os.environ.get('TOKEN')
     app = Application.builder().token(TOKEN).build()
 
     app.add_handler(CommandHandler('start', start))
