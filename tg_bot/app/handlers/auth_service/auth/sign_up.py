@@ -43,6 +43,7 @@ async def __check_first_name(update: Update, context: ContextTypes.DEFAULT_TYPE)
         logger.info(f'UserName {first_name}')
         user_data = context.user_data
         user_data['firstName'] = first_name
+        user_data['key_project'] = 1
 
         await update.message.reply_text(
                             text="Введите Фамилию")

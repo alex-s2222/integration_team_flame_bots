@@ -42,6 +42,7 @@ async def __check_email_correct(update: Update, context: ContextTypes.DEFAULT_TY
         logger.info(f'EMAIL {email}')
         user_data = context.user_data
         user_data['email'] = email
+        user_data['key_project'] = 1
 
         await update.message.reply_text(
                             text="Введите пароль")
